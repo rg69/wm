@@ -1,0 +1,150 @@
+.container { position: relative; margin: 0 auto; padding: 0; }
+
+.isotope-item {
+    z-index: 102;
+}
+.isotope-hidden.isotope-item {
+    pointer-events: none;
+    z-index: 101;
+}
+/**** Isotope CSS3 transitions ****/
+.isotope, .isotope .isotope-item {
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -ms-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+}
+.isotope {
+    -webkit-transition-property: height, width;
+    -moz-transition-property: height, width;
+    -ms-transition-property: height, width;
+    -o-transition-property: height, width;
+    transition-property: height, width;
+}
+.isotope .isotope-item {
+    -webkit-transition-property: -webkit-transform, opacity;
+    -moz-transition-property:    -moz-transform, opacity;
+    -ms-transition-property:     -ms-transform, opacity;
+    -o-transition-property:         top, left, opacity;
+    transition-property:         transform, opacity;
+
+    -webkit-transition-property: top, left, opacity;
+    -moz-transition-property: top, left, opacity;
+    -ms-transition-property: top, left, opacity;
+    -o-transition-property: top, left, opacity;
+    transition-property: top, left, opacity;
+}
+/**** disabling Isotope CSS3 transitions ****/
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+    -webkit-transition-duration: 0s;
+    -moz-transition-duration: 0s;
+    -ms-transition-duration: 0s;
+    -o-transition-duration: 0s;
+    transition-duration: 0s;
+}
+.red{background-color: red;}
+.yellow{background-color: yellow;}
+.black{background-color: black;}
+
+#options h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    float: left;
+    margin-right: 20px;
+    line-height: 18px;
+    font-weight: normal;
+}
+ul#filters li {
+    list-style: none;
+    float: left;
+    line-height: 17px;
+    margin-right: 10px;
+}
+ul#filters li a{
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.title-container h1{
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 25px;
+    margin-bottom: 0;
+}
+.title_with_filter {
+    position: relative;
+}
+.title_with_filter section h3 {
+    display: none;
+}
+.title_with_filter ul#filters {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+}
+#mobile-filter {
+    display: none;
+    margin-bottom: 20px;
+}
+#mobile-filter select {
+    min-width: 232px;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background-image: url(mobile-menu-arrow.png);
+    background-position: center right;
+    background-repeat: no-repeat;
+    padding: 10px 5px;
+    margin-top: 20px;
+    background-color:#FFF;
+}
+
+          
+.item{
+    position: relative;
+    margin:2px;
+    width: 156px;
+    height:200px;
+    float: left;
+    color: #333131;
+    background: white url('progress.gif') no-repeat center;
+    border: 1px solid silver;
+}
+
+.itemButton,.nav_post div, .small-info{cursor: pointer;}
+.small-info .item_hover{
+    position: absolute;
+    top: 0px;
+    left: 0;
+    padding: 15px;
+    height: 126px;
+    width: 126px;
+    display: none;
+    z-index: 105;
+    background: #FFF;
+}
+.small-info h2 {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 8px;
+    padding-bottom: 9px;
+    margin-top: 30px;
+    background: transparent url('title-seperator.gif') no-repeat left bottom;
+    overflow: hidden;
+    max-height: 60px;
+}
+.small-info .nav{display: none;}
+.dark .small-info h2 {background: transparent url('title-seperator-light.gif') no-repeat left bottom;}
+.small-info, .large-info{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}

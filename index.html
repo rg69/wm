@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Wit-Me</title>
+<link rel="stylesheet" type="text/css" href="jquery-ui-1.10.3.custom.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="wit-me.css" />
+<link rel="stylesheet" type="text/css" href="proxima-nova.css" />
+<link rel="stylesheet" type="text/css" href="prettyPhoto.css" />
+<style>
+#sticky {
+  padding: 0.5ex;
+  width: 100%;
+  background-color: #6A95D3;
+  color:white;
+  font-size: 2em;
+}
+#sticky.stick {
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+}
+</style>
+<script type="text/javascript" src="css3-mediaqueries.js"></script>
+<script type="text/javascript" src="jquery-1.10.1.js"></script>
+<script type="text/javascript" src="jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript" src="jquery.wookmark.js"></script>
+<script type="text/javascript" src="jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="jquery.preloader.js"></script>
+<script type="text/javascript" src="jquery.prettyPhoto.js"></script>
+<script type="text/javascript">
+    var isSticky = false;
+    
+function sticky_relocate() {
+  var window_top = $(window).scrollTop();
+  var div_top = $('#sticky-anchor').offset().top;
+  if (window_top > div_top) {
+      if (!isSticky) 
+      {
+        $('#sticky').hide();
+        $('#sticky').show('slow');
+        $('#sticky').addClass('stick');
+        isSticky = true;
+      }
+  } else {
+    $('#sticky').removeClass('stick');
+    isSticky = false;
+  }
+}
+
+function CheckForNewContent() {
+    $('#loader').show();
+    $.getJSON("checkcontent.php?cmd=s",{}, 
+            function(j){
+                $('#loader').hide();
+                if (j['update'])$('#reload').show();
+            }
+       );
+ };
+
+// Function DateExpiration
+// fixe la date d'expiration
+function DateExpiration (DateExp) {
+    var aujourdhui = new Date(0);
+    var aujourdhuidate = aujourdhui.getTime();
+    if (aujourdhuidate > 0)
+            DateExp.setTime (DateExp.getTime() - aujourdhuidate);
+}
+
+// Function FixeCookie
+// pour cr�er ou modifier un cookie
+function FixeCookie (nom,valeur,expire,path,domaine,securise) {
+    document.cookie = nom + "=" + escape (valeur) + ((expire) ? "; expires=" + expire.toGMTString() : "") + ((path) ? "; path=" + path : "") + ((domaine) ? "; domain=" + domaine : "") + ((securise) ? "; secure" : "");
+}
+
+// Function SupprCookie
+// Supprime un Cookie
+function SupprCookie (nom,path,domaine) {
+
+    if (GetValeurCookie(nom)) {
+            document.cookie = nom + "=" + ((path) ? "; path=" + path : "") + ((domaine) ? "; domain=" + domaine : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+    }
+}
+
+// Function ValeurCookie
+// Utiliser par GetValeurCookie
+function ValeurCookie (pos) {
+    var endstr = document.cookie.indexOf (";", pos);
+    if (endstr == -1)
+            endstr = document.cookie.length;
+    return unescape(document.cookie.substring (Pos, endstr));
+}
+
+// Function GetValeurCookie
+// pour r�cup�rer la valeur d'un cookie
+function GetValeurCookie (nom) {
+    var cookielength = document.cookie.length;
+    var arg = nom + "=";
+    var arglength = arg.length;
+    var i = 0;
+    while (i < cookielength) {
+    var j = i + arglength;
+    if (document.cookie.substring(i, j) == arg)
+            return ValeurCookie (j);
+            i = document.cookie.indexOf(" ", i) + 1;
+            if (i == 0) break;
+    }
+    return null;
+}
+   
+</script>
+</head>
+<body>
+ <div style="position:absolute;top:5px;left:10px;"><img src="witlogolarge.gif" alt="" style="width:70px;"/></div>
+ <table class="main_table_content" style="background-color: #6A95D3;">
+    <tr>
+        <td style="vertical-align:top;width:60px;padding-left: 10px;"></td>
+        <td style="vertical-align:middle; text-align: center;"><span class="wit_subtitle" style="color: white;">&quot;SLOGAN A DEFINIR&quot;</span></td>
+        <td rowspan="2" style="vertical-align:top; width:15%;">
+            <table class="main_table_content">
+            <tr>
+                <td style="width:98%; text-align: right;">
+                <div id="signedas">
+                    <span class="witme_text"> 
+                           <a href="#" id="signintrigger" onClick="showdiv('signin');hidediv('signintrigger');">SE CONNECTER</a><br /><a href="./registration/register.php">S'ENREGISTRER</a>
+                    </span>
+                </div>
+                </td>
+                <td style="width:2%;">&nbsp;</td>
+               </tr>
+              </table>
+    	</td>
+    </tr>
+    <tr>
+        <td style="vertical-align:top;width:60px;padding-left: 10px;"></td>
+        <td style="vertical-align:top; text-align: center;padding-top:0;padding-bottom:0;"><span class="wit_subtitle1" style="color: white;">SOUS TITRE A DEFINIR</span></td>      
+    </tr>   
+</table>
+<table class="main_table_content" style="background-color: #FF7F00">
+  <tr>
+    <td style="vertical-align:top;padding-top:20px;"><img src="leftsecond.png" width="363" height="119" alt="" /></td>
+    <td style="vertical-align:top;text-align: right;padding-top:20px;">
+        <div style="position: relative;background-image: url('couterbg.png');background-repeat:no-repeat;background-position:center center;height:90px;text-align: center;">
+             <span id='summaryinfo' class="wit_subtitle1" style="color:white; font-weight:  bold;">
+                <br /><br /><br />? oBoxes, ? votes, ? vues
+            </span>
+        </div>
+    </td>
+  </tr>
+  <tr><td style="padding-top:40px;"></td><td></td></tr>
+</table>
+    <div id="sticky-anchor"></div>
+    <div id="sticky">
+        <div  id="header_search" >
+            <div data-role="fieldcontain" id="search" style="margin-top: -20px;margin-bottom: -10px;">
+                <table class='main_table_content'>
+                    <tr>
+                        <td  style='width:200px;;text-align:left;'>
+                            <input type="text" id="suggest_input" maxlength="50" size='40' placeholder="Termes recherch&eacute;" class="ui-widget witme_text" style="color:#333333;"/>
+                        </td>
+                        <td style='width:22px;text-align:left;padding-top:13px;'>
+                            <a href="#" id="search_button"><img data-rel="dialog" data-inline="true" src="loupe.png"/></a>
+                        </td>
+                        <td style='width:auto;text-align:left;padding-left:30px;'>
+                            <select data-icon="arrow-d" data-mini="true" data-inline="true" name='sortbox' id="sortbox" class='wit_selectbox_text'> <!--data-native-menu="false"-->
+                                <option style="color: #FF6600; background-color:#4F689D; font-weight:bold;" value="0" selected >Tri par d&eacute;faut</option>
+                                <option style="color: #FF6600; background-color:#4F689D; font-weight:bold;" value="1" >SORT 1</option>
+                                <option style="color: #FF6600; background-color:#4F689D; font-weight:bold;" value="2" >SORT 2</option>
+                                <option style="color: #FF6600; background-color:#4F689D; font-weight:bold;" value="3" >SORT 3</option>
+                                <option style="color: #FF6600; background-color:#4F689D; font-weight:bold;" value="4" >SORT 4</option>
+                                <option style="color: #FF6600; background-color:#4F689D; font-weight:bold;" value="5" >SORT 5</option>
+                                <option style="color: #FF6600; background-color:#4F689D; font-weight:bold;" value="6" >SORT 6</option>
+                            </select>        
+                        </td>
+                        <td><span id="count_text" class="witme_text"></span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+<div data-role="content" id="wall_container" style="width:100%; padding-top:20px;">
+    <ul id="tiles">
+        <!-- These is where we place content loaded from the Wookmark API -->
+    </ul>
+    <div id="loader" style="text-align:center;padding-top: 20px;">
+      <div id="loaderCircle"><img src="loader.gif" alt=""/></div>
+    </div>
+</div>
+<script type="text/javascript">
+var handler = null;
+var $infinitescrollPage = 1;
+var isLoading = true;
+var fromsearch=0;
+
+var options = {
+        autoResize: true,
+        align: 'center',
+        container: $('#tiles'),
+        itemWidth: 200,
+        offset: 2};
+
+function imgError(image) {
+      image.onerror = "";
+      image.src = "point.gif";  
+      image.style.width = '180px';
+      image.style.height = 'auto';
+      var myParent = image.parentElement;
+      myParent.style.margin= '0px 0px 0px 0px'; 
+   return true;
+}
+
+function onScroll(event) {	  
+    // Only check when we're not still waiting for data.
+    if(!isLoading) {
+        // Check if we're within 100 pixels of the bottom edge of the broser window.
+        var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
+        if(closeToBottom) {
+             $infinitescrollPage++; // increment page number only when scrolling down
+            loadData();
+	}
+    }
+};
+		
+/**
+ * Refreshes the layout.
+ */
+function applyLayout() {
+    // Clear our previous layout handler.
+    if (handler != null)
+     if (handler.wookmarkInstance) 
+        handler.wookmarkInstance.clear();
+    
+    // Create a new layout handler.
+    handler = $('#tiles li');
+    handler.wookmark(options,1);
+};
+		
+function getQuerystring(key, default_) {
+    if (default_==null) default_="";
+    key = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regex = new RegExp("[\\?&]"+key+"=([^&#]*)");
+    var qs = regex.exec(window.location.href);
+    if(qs == null) return default_; else return qs[1];
+};
+
+/**
+ * Loads data from the API.
+ */
+function loadData() {
+    isLoading = true;
+    $('#loader').show();
+    var apiURL='https://apî.uwit.me/witmarker/checkcontent.php?cmd=sp&page='+$infinitescrollPage+'&search='+document.getElementById("suggest_input").value+'&sort='+document.getElementById("sortbox").selectedIndex;
+        apiURL=apiURL+'&private=0';
+    $.getJSON(apiURL,{})
+            .done(function (data) {
+                    $('#loader').hide();
+                    onLoadData(data);
+                 })
+            .fail(function( jqxhr, textStatus, error ) {
+                    var err = textStatus + ', ' + error;
+                    console.log( "Request Failed: " + err);}); 
+                    $('#loader').hide();
+};
+
+// on mouse over a tile, show more information loaded from ajax
+function fadeouttile(li) {
+    $('#'+li.id).stop(true,true).fadeIn('fast');
+}	
+
+function fadeintile(li) {
+    $('#'+li.id).stop(true, true).fadeOut('fast');
+}	
+
+/**
+ * Receives data from the API, creates HTML for images and updates the layout
+ */
+function onLoadData(data) {
+    //var largeur=0.95*$('#tiles').outerWidth([includeMargin])+'px';
+//    var largeur=(parseInt($('#tiles').css('width'))- parseInt($('#tiles').css('padding-left')) - parseInt($('#tiles').css('padding-right')))+ parseInt(25) +'px';
+     // Create HTML for the images.
+    var html = '';
+    var length=data.length, image;
+    
+//    $('#count_text').html(data.length+" O-Boxes found");
+    var URL='view.php?search='+document.getElementById("suggest_input").value+'&sort='+document.getElementById("sortbox").selectedIndex;
+        URL=URL+'&private=0'; 
+
+    var availableTags = new Array();
+
+    for(i=0; i<length; i++) if (data[i].title != '') availableTags[availableTags .length]= data[i].title;
+    
+    $( "#suggest_input" ).autocomplete({
+      source: availableTags
+    });
+
+    for(i=0; i<length; i++) {
+        image = data[i];
+        w = image.width; h= 'auto';
+        if (w == null) w = '180px';
+        html = '<li id="itemli'+$infinitescrollPage+i+'>';				
+        html += '<div class="tile_zone"><table class="main_table_content"><tr><td style="width:100%;text-align:center;vertical-align:bottom;background-color:#333333;">';
+        html += '<div class="img_placeholder"><a href="'+image.preview+'" rel="prettyPhoto"><img src="'+image.preview+'" style="width:'+w+';height:'+h+';"  alt="" onerror="imgError(this);"/></a></div></td></tr></table>';
+        html += '<div class="legendeBASSE" style="text-align:center; vertical-align:middle;">';
+        html += '<div class="item_title_div titleli" style="width:100%"><span class="item_title">'+ (image.title==null ? '': image.title.substr(0,40)+(image.title.length > 40 ? '...':''))+'</span></div>';
+        html += '<div class="item_title_div rolloverli" style="width:100%; margin-top:-195px;text-align:center;display:none"><table class="main_table_content item_title">';
+        html += '<tr><td colspan="5" style="padding-bottom:20px;"><span class="item_title"><strong>'+(image.title==null ? '': image.title.substr(0,40)+(image.title.length > 40 ? '...':''))+'</strong></span></td></tr>'
+        html += '<tr><td width="10%" align="center">';
+        html += '<img src="head.png" title="VUES"/></td><td width="10%" align="center">'+(image.WMVIEW != null ? image.WMVIEW : '0')+'</td>';
+        html += '<td width="60%">&nbsp;</td><td width="10%" align="cnter"><img src="stat.png" title="VOTES"/></td><td  width="10%" align="center">'+(image.WMV != null ?image.WMV:'0')+'</td></tr></table></div>';
+        if(length==0&&fromsearch==1)
+             html += '<li align="center" style="color:#4f689d; border: 0px;padding:2px; float:left; background:transparent">PLUS...</li>';
+        html += '</li>';
+					   
+        // Add image HTML to the page
+        $('#tiles').append(html);
+    }
+    // hide all details div
+    $('#tiles li rolloverli').hide();
+    // on mouse over show details div and hide it on mouse out
+    $('#tiles li').hover(
+        function() {             
+             $(this).stop().fadeTo('slow', 0.35);
+             $(this).find('.rolloverli').show();
+             $(this).find('.titleli').css('visibility','hidden');
+        },
+        function(){
+             $(this).find('.rolloverli').hide();
+             $(this).find('.titleli').css('visibility','');
+            $(this).stop().fadeTo('slow', 1);
+        }
+    );
+    $("a[rel^='prettyPhoto']").prettyPhoto({
+        animation_speed: 'normal', /* fast/slow/normal */
+        slideshow: false, /* false OR interval time in ms */
+        autoplay_slideshow: false, /* true/false */
+        opacity: 0.80, /* Value between 0 and 1 */
+        show_title: true, /* true/false */
+        allow_resize: true, /* Resize the photos bigger than viewport. true/false */
+        default_width: 500,
+        default_height: 344,
+        counter_separator_label: '/', /* The separator for the gallery counter 1 "of" 2 */
+        theme: 'pp_default', /* light_rounded / dark_rounded / light_square / dark_square / facebook */
+        horizontal_padding: 20, /* The padding on each side of the picture */
+        hideflash: false, /* Hides all the flash object on a page, set to TRUE if flash appears over prettyPhoto */
+        wmode: 'opaque', /* Set the flash wmode attribute */
+        autoplay: false, /* Automatically start videos: True/False */
+        modal: false, /* If set to true, only the close button will close the window */
+        deeplinking: true, /* Allow prettyPhoto to update the url to enable deeplinking. */
+        social_tools:   false,
+        overlay_gallery: true /* If set to true, a gallery will overlay the fullscreen image on mouse over */
+    });
+
+    // hide loader
+    applyLayout();
+    
+       isLoading = false;	  
+
+}
+ 
+$('#search_button').bind( "click", function(event, ui) {	
+    var expdate = new Date ();
+    DateExpiration (expdate);
+    expdate.setTime (expdate.getTime() + (30*24 * 60 * 60 * 1000)); 
+    FixeCookie("WMSEARCH", document.getElementById("suggest_input").value, expdate);
+    $infinitescrollPage=1;
+
+   
+    $('#sorting').hide(200);
+
+    fromsearch=1;
+    // remove tiles and start from scratch
+
+    $('#tiles li').remove();
+    // Apply layout.
+    loadData();
+});
+
+$('#sortbox').bind( "change", function(event, ui) {
+    fromsearch=1;
+    // remove tiles and start from scratch
+    $('#tiles li').remove();
+    // Apply layout
+     $infinitescrollPage=1;
+    loadData();
+    });    
+
+var $body_scroll = false;
+
+$(document).ready(function() {
+    $('#loader').hide();
+    $('#loaderCircle').hide();
+    $('#loaderCircle').show();
+    jQuery('.preload').preloadImages({
+        showSpeed: 500,   
+        easing: 'easeOutQuad'   
+    });
+    $(window).scroll(sticky_relocate);
+    sticky_relocate();
+    $body_scroll = jQuery("html").niceScroll();
+    setTimeout(function(){if($body_scroll){$body_scroll.resize();}else{$body_scroll = jQuery("html").niceScroll();}},1000);
+
+//    var refreshId = setInterval(CheckForNewContent, 60000);
+
+
+    $(document).bind('scroll', onScroll);
+    loadData(); 	
+    });
+</script>
+
+</body>
+</html>
